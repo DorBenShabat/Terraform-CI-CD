@@ -1,0 +1,34 @@
+name: 'Terraform GitHub Actions'
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform-ci-cd
+
+    # Environment variables available to all jobs
+    env:
+      TF_VERSION: 0.14.x
+      TF_INIT: true
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - name: 'Setup Terraform'
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: 'Terraform Init'
+        run: terraform init
+
+      - name: 'Terraform Apply'
+        run: terraform apply -auto-approve
