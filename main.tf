@@ -10,7 +10,6 @@ terraform {
     }
   }
   required_version = "~> 1.0"
-  #my organization
   backend "remote" {
     organization = "Matrix-learn-terraform"
 
