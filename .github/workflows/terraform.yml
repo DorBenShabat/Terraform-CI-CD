@@ -15,20 +15,19 @@ jobs:
       TF_INIT: true
 
     steps:
-  - name: 'Checkout'
-    uses: actions/checkout@v2
+      - name: 'Checkout'
+        uses: actions/checkout@v2
 
-  - name: 'Setup Terraform'
-    uses: hashicorp/setup-terraform@v2
-    with:
-      terraform_version: ${{ env.TF_VERSION }}
-      cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      - name: 'Setup Terraform'
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-  - name: 'Terraform Init'
-    run: terraform init
-    working-directory: .
+      - name: 'Terraform Init'
+        run: terraform init
+        working-directory: .
 
-  - name: 'Terraform Apply'
-    run: terraform apply -auto-approve
-    working-directory: .
-
+      - name: 'Terraform Apply'
+        run: terraform apply -auto-approve
+        working-directory: .
